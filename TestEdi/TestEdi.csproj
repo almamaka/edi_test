@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,6 +11,7 @@
     <PackageReference Include="FlaUI.Core" Version="5.0.0" />
     <PackageReference Include="FlaUI.UIA3" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.0-preview.4.25258.110" />
     <PackageReference Include="MSTest" Version="3.6.4" />
   </ItemGroup>
 
@@ -18,4 +19,10 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Reference Include="Accessibility">
+			<HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Accessibility.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
 </Project>
