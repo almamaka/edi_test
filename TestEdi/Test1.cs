@@ -1,4 +1,7 @@
-﻿using FlaUI.Core;
+﻿using System.Diagnostics;
+using AventStack.ExtentReports;
+using System.Xml.Linq;
+using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Tools;
@@ -13,15 +16,37 @@ namespace TestEdi
         private UIA3Automation? automation;
         private ConditionFactory? cf;
         private Window? mainWindow;
+        private static ExtentReports? extent;
+        private ExtentTest? test;
+
+        public TestContext? TestContext { get; set; }
+
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            extent = ExtentReportManager.GetExtent();
+        }
 
         [TestInitialize]
         public void Setup()
         {
-            string path = @"Release\Edi.exe";
-            string basedir = AppDomain.CurrentDomain.BaseDirectory;
-            string path2 = Directory.GetParent(basedir).Parent.Parent.Parent.Parent.ToString();
+            test = extent?.CreateTest(TestContext?.TestName);
+            test?.Info("Test initializing");
 
-            application = FlaUI.Core.Application.Launch(Path.Combine(path2, path));
+            string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string exePath = Path.Combine(solutionDir, @"Release\Edi.exe");
+
+            if (!File.Exists(exePath))
+            {
+                throw new FileNotFoundException($"Could not find Edi.exe at: {exePath}");
+            }
+
+            application = Application.Launch(new ProcessStartInfo
+            {
+                FileName = exePath,
+                WorkingDirectory = Path.GetDirectoryName(exePath),
+                UseShellExecute = true
+            });
 
             automation = new UIA3Automation();
 
@@ -45,17 +70,34 @@ namespace TestEdi
                 cf!.ByAutomationId("PART_WindowTitleThumb")
             )?.AsLabel();
 
+            if (descriptionLabel != null)
+            {
+                test?.Log(Status.Pass, "Description label found successfully.");
+            }
+            else
+            {
+                test?.Log(Status.Fail, "Description label was not found.");
+            }
+
             Assert.IsNotNull(descriptionLabel, "Description label was not found");
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            test?.Info("Cleaning up");
             if (application != null && !application.HasExited)
             {
                 application.Close();
             }
             automation?.Dispose();
+            test?.Pass("Cleanup completed");
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            extent?.Flush();
         }
     }
 }
