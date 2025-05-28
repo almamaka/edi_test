@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edi", "Edi\Edi\Edi.csproj", "{2FC27F19-6128-4A21-8C52-1E6AB6618E78}"
 EndProject
@@ -61,6 +61,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Files", "Tools\BuiltIn\Files\Files.csproj", "{EF9B7E8D-B722-48E0-A941-E21F4F7CC2DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edi.Apps", "Edi\Edi.Apps\Edi.Apps.csproj", "{4DF91F4B-878A-4AB3-A5EC-16BCE3D6E99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEdi", "TestEdi\TestEdi.csproj", "{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -366,6 +368,22 @@ Global
 		{4DF91F4B-878A-4AB3-A5EC-16BCE3D6E99D}.Release|Net40.Build.0 = Release|Any CPU
 		{4DF91F4B-878A-4AB3-A5EC-16BCE3D6E99D}.Release|WithNRefactory.ActiveCfg = Release|Any CPU
 		{4DF91F4B-878A-4AB3-A5EC-16BCE3D6E99D}.Release|WithNRefactory.Build.0 = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Net35.ActiveCfg = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Net35.Build.0 = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Net40.ActiveCfg = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|Net40.Build.0 = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|WithNRefactory.ActiveCfg = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Debug|WithNRefactory.Build.0 = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Net35.ActiveCfg = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Net35.Build.0 = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Net40.ActiveCfg = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|Net40.Build.0 = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|WithNRefactory.ActiveCfg = Release|Any CPU
+		{6574E768-6298-4329-AF5E-B5ECB8F5EB7E}.Release|WithNRefactory.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
