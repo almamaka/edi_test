@@ -1,6 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
 using AventStack.ExtentReports;
-using System.Xml.Linq;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
@@ -9,19 +13,18 @@ using FlaUI.UIA3;
 
 namespace TestEdi
 {
-    [TestClass]
-    public sealed class Test1
+    public class BaseTest
     {
-        private Application? application;
-        private UIA3Automation? automation;
-        private ConditionFactory? cf;
-        private Window? mainWindow;
-        private static ExtentReports? extent;
-        private ExtentTest? test;
+        protected Application? application;
+        protected UIA3Automation? automation;
+        protected ConditionFactory? cf;
+        protected Window? mainWindow;
+        protected static ExtentReports? extent;
+        protected ExtentTest? test;
 
         public TestContext? TestContext { get; set; }
 
-        [ClassInitialize]
+        [ClassInitialize(InheritanceBehavior.BeforeEachDerivedClass)]
         public static void ClassInit(TestContext context)
         {
             extent = ExtentReportManager.GetExtent();
@@ -49,37 +52,13 @@ namespace TestEdi
             });
 
             automation = new UIA3Automation();
-
             cf = automation.ConditionFactory;
+
             mainWindow = Retry.WhileNull(() => application.GetMainWindow(automation), TimeSpan.FromSeconds(10)).Result;
             if (mainWindow == null)
             {
                 throw new Exception("Main window was not found after waiting.");
             }
-        }
-
-        [TestMethod]
-        public void FirstTest()
-        {
-
-            Assert.IsNotNull(mainWindow, "Main window was not found");
-            Assert.IsNotNull(cf, "ConditionFactory was not initialized");
-
-            //! is used because in setup() it is sure it is not null
-            var descriptionLabel = mainWindow!.FindFirstDescendant(
-                cf!.ByAutomationId("PART_WindowTitleThumb")
-            )?.AsLabel();
-
-            if (descriptionLabel != null)
-            {
-                test?.Log(Status.Pass, "Description label found successfully.");
-            }
-            else
-            {
-                test?.Log(Status.Fail, "Description label was not found.");
-            }
-
-            Assert.IsNotNull(descriptionLabel, "Description label was not found");
         }
 
         [TestCleanup]
@@ -88,13 +67,13 @@ namespace TestEdi
             test?.Info("Cleaning up");
             if (application != null && !application.HasExited)
             {
-                application.Close();
+               // application.Close();
             }
             automation?.Dispose();
             test?.Pass("Cleanup completed");
         }
 
-        [ClassCleanup]
+        [ClassCleanup(InheritanceBehavior.BeforeEachDerivedClass)]
         public static void ClassCleanup()
         {
             extent?.Flush();
