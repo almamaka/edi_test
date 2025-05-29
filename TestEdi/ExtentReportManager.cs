@@ -17,7 +17,7 @@ namespace TestEdi
         {
             if (_extent == null)
             {
-                string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+                string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
                 string reportPath = Path.Combine(solutionDir, "TestResults", "ExtentReport.html");
                 Directory.CreateDirectory(Path.GetDirectoryName(reportPath));
 
