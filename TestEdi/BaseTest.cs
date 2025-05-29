@@ -10,6 +10,7 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Tools;
 using FlaUI.UIA3;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace TestEdi
 {
@@ -21,6 +22,8 @@ namespace TestEdi
         protected Window? mainWindow;
         protected static ExtentReports? extent;
         protected ExtentTest? test;
+        protected ExtentTest? feature;
+        protected ExtentTest? scenario;
 
         public TestContext? TestContext { get; set; }
 
@@ -33,8 +36,8 @@ namespace TestEdi
         [TestInitialize]
         public void Setup()
         {
-            test = extent?.CreateTest(TestContext?.TestName);
-            test?.Info("Test initializing");
+            feature = extent?.CreateTest<Feature>("Edi Application - File Management");
+            feature?.Info("Feature initializing");
 
             string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
             string exePath = Path.Combine(solutionDir, @"Release\Edi.exe");
@@ -59,18 +62,20 @@ namespace TestEdi
             {
                 throw new Exception("Main window was not found after waiting.");
             }
+
+            feature?.Pass("Application launched and main window opened");
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            test?.Info("Cleaning up");
+            feature?.Info("Cleaning up");
             if (application != null && !application.HasExited)
             {
-               // application.Close();
+                application.Close();
             }
             automation?.Dispose();
-            test?.Pass("Cleanup completed");
+            feature?.Pass("Cleanup completed");
         }
 
         [ClassCleanup(InheritanceBehavior.BeforeEachDerivedClass)]
