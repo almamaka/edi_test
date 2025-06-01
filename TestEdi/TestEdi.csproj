@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExtentReports" Version="5.0.5-beta1" />
+    <PackageReference Include="FlaUI.Core" Version="5.0.0" />
+    <PackageReference Include="FlaUI.UIA3" Version="5.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.0-preview.4.25258.110" />
+    <PackageReference Include="MSTest" Version="3.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Accessibility">
+			<HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Accessibility.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ScreenShots\" />
+	</ItemGroup>
+</Project>
