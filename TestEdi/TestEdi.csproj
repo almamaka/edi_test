@@ -26,4 +26,8 @@
 			<Private>true</Private>
 		</Reference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ScreenShots\" />
+	</ItemGroup>
 </Project>

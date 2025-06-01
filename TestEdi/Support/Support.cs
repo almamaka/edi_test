@@ -39,5 +39,26 @@ namespace TestEdi.Support
                 Console.WriteLine(win.Name);
             }
         }
+
+        public string SaveWindowScreenshot(IntPtr windowHandle)
+        {
+            try
+            {
+                using var screenshot = FlaUI.Core.Capturing.Capture.Screen();
+                var fileName = $"screenshot_{DateTime.Now:yyyyMMdd_HHmmssfff}.png";
+                string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+                string screenshotPath = Path.Combine(solutionDir, "ScreenShots", fileName);
+                Directory.CreateDirectory(Path.GetDirectoryName(screenshotPath));
+
+
+                screenshot.ToFile(screenshotPath);
+                return screenshotPath;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Screenshot failed: " + ex.Message);
+                return string.Empty;
+            }
+        }
     }
 }

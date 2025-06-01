@@ -36,46 +36,62 @@ namespace TestEdi
         [TestInitialize]
         public void Setup()
         {
-            feature = extent?.CreateTest<Feature>("Edi Application - File Management");
-            feature?.Info("Feature initializing");
-
-            string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
-            string exePath = Path.Combine(solutionDir, @"Release\Edi.exe");
-
-            if (!File.Exists(exePath))
+            try
             {
-                throw new FileNotFoundException($"Could not find Edi.exe at: {exePath}");
+
+                string solutionDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+                string exePath = Path.Combine(solutionDir, @"Release\Edi.exe");
+
+                if (!File.Exists(exePath))
+                {
+                    throw new FileNotFoundException($"Could not find Edi.exe at: {exePath}");
+                }
+
+                application = Application.Launch(new ProcessStartInfo
+                {
+                    FileName = exePath,
+                    WorkingDirectory = Path.GetDirectoryName(exePath),
+                    UseShellExecute = true
+                });
+
+                application.WaitWhileMainHandleIsMissing(TimeSpan.FromSeconds(10));
+                Thread.Sleep(300);
+
+                if (application.HasExited)
+                {
+                    throw new Exception($"Edi process exited immediately after launch (PID {application.ProcessId})");
+                }
+
+                automation = new UIA3Automation();
+                cf = automation.ConditionFactory;
+
+               
+                mainWindow = Retry.WhileNull(() =>
+                {
+                    try
+                    {
+                        return application.GetMainWindow(automation);
+                    }
+                    catch (ArgumentException)
+                    {
+                        return null;
+                    }
+                }, TimeSpan.FromSeconds(10)).Result;
             }
-
-            application = Application.Launch(new ProcessStartInfo
+            catch (Exception ex)
             {
-                FileName = exePath,
-                WorkingDirectory = Path.GetDirectoryName(exePath),
-                UseShellExecute = true
-            });
-
-            automation = new UIA3Automation();
-            cf = automation.ConditionFactory;
-
-            mainWindow = Retry.WhileNull(() => application.GetMainWindow(automation), TimeSpan.FromSeconds(10)).Result;
-            if (mainWindow == null)
-            {
-                throw new Exception("Main window was not found after waiting.");
+                throw ex;
             }
-
-            feature?.Pass("Application launched and main window opened");
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            feature?.Info("Cleaning up");
             if (application != null && !application.HasExited)
             {
                 application.Close();
             }
             automation?.Dispose();
-            feature?.Pass("Cleanup completed");
         }
 
         [ClassCleanup(InheritanceBehavior.BeforeEachDerivedClass)]
