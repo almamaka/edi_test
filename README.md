@@ -20,4 +20,5 @@ This application requires .NET Framework 4 to run. It runs on Windows 7 or latte
 * FlaUI
 * Extent Reporter
 * BDD syntax
+
 Test related code is under TestEdi folder
