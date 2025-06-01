@@ -6,8 +6,8 @@ This is my project from the fixed Edi project and Test project added into the so
 
 ## Getting Started
 
-Dowload the source, compile and run should work out of the box (you may have to enable nuget package download).
-Run Tests will Build the whole solution, so the executable file should be available the time of the run
+Change the build option to Release mode
+Run Tests will Build the whole solution, so the executable file should be available the time of the run. Test are loading Edi only from Release folder currently.
 
 ### Prerequisites
 
