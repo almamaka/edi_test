@@ -56,7 +56,7 @@ namespace TestEdi
         [TestMethod]
         public void SetupDefaultFileNameTest()
         {
-            scenario = feature?.CreateNode<Scenario>("Add new text file");
+            scenario = feature?.CreateNode<Scenario>("Setup default file name");
             scenario?.CreateNode<Given>("The application is launched and main window is opened");
 
             mainView!.ClickOn(mainView.ToolsMenuItem, "When", scenario, "User clicks on Tools menu", "Tools menuitem clicked", "Tools menuitem not found");
@@ -70,7 +70,7 @@ namespace TestEdi
             
             mainView!.ClickOn(mainView!.NewFileButton, "Then", scenario, "User clicks on 'New' button", "New button clicked.", "Button not found or cannot be clicked.");
             var newFile = mainView.FindFileLabel(defaultFileName + ".txt");
-            mainView!.AssertElementVisible(newFile, scenario, "Then", "The file is successfully created", "The new file is successfully created", "File could not be created");
+            mainView!.AssertElementVisible(newFile, scenario, "And", "The default file name is visible on new empty file", "The new file is successfully opened with default name", "Default name is not as expected");
             mainView!.ClickOn(mainView!.CloseIcon, "And", scenario, "User clicks the Close tab button", "New file successfully closed", "Close icon not found or cannot be clicked");
             
             mainView!.SetDefaultFileNameBackToUntitled();

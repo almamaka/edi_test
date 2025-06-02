@@ -47,7 +47,7 @@ namespace TestEdi.Support
                     newStep = ReportBDDHelper.createWhenStep(scenario, description);
                     break;
                 case "Then":
-                    newStep = ReportBDDHelper.createWhenStep(scenario, description);
+                    newStep = ReportBDDHelper.createThenStep(scenario, description);
                     break;
                 default:
                     newStep = ReportBDDHelper.createAndStep(scenario, description);
