@@ -55,8 +55,11 @@ namespace TestEdi.ScreenViews
         public Button ConfirmSaveButton => _window.FindFirstDescendant(_cf.ByAutomationId("1")
             .And(_cf.ByControlType(ControlType.Button)))?.AsButton();
 
-        public Button ConfirmOpenButton => _window.FindFirstDescendant(_cf.ByAutomationId("1")
+        public Button ConfirmOpenSplitButton => _window.FindFirstDescendant(_cf.ByAutomationId("1")
             .And(_cf.ByControlType(ControlType.SplitButton)))?.AsButton();
+
+        public Button ConfirmOpenButton => _window.FindFirstDescendant(_cf.ByAutomationId("1")
+            .And(_cf.ByControlType(ControlType.Button)))?.AsButton();
 
         public Button CloseIcon => _window.FindFirstDescendant(_cf.ByAutomationId("DocumentCloseButton"))?.AsButton();
 

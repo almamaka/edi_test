@@ -25,7 +25,7 @@ namespace TestEdi
         [TestInitialize]
         public void TestSetup()
         {
-            feature = extent?.CreateTest<Feature>("Edi Application - Open files");
+            feature = extent?.CreateTest<Feature>("Edi Application - Opening pages and app");
             mainView = new MainWindowView(mainWindow!, cf!);
             
         }
@@ -49,17 +49,17 @@ namespace TestEdi
         [TestMethod]
         public void OpenEdi()
         {
-            scenario = feature?.CreateNode<Scenario>("Open Recent Files tab");
-            scenario?.CreateNode<Given>("The application is launched and main window is opened");
+            scenario = feature?.CreateNode<Scenario>("Open Edi Application");
+            scenario?.CreateNode<When>("Tests started runniing");
 
-            mainView!.AssertElementVisible(mainView!.EdiIcon, scenario, "Then", "Edi started successfully", "Edi successfully opened", "Edi cannot be opened");
+            mainView!.AssertElementVisible(mainView!.EdiIcon, scenario, "Then", "Edi launched successfully and main window is opened", "Edi successfully opened", "Edi cannot be opened");
 
         }
 
         [TestMethod]
         public void OpenStartPage()
         {
-            scenario = feature?.CreateNode<Scenario>("Open Recent Files tab");
+            scenario = feature?.CreateNode<Scenario>("Open Start Page");
             scenario?.CreateNode<Given>("The application is launched and main window is opened");
             
             mainView!.ClickOn(mainView.ViewMenuItem, "When", scenario, "User clicks on View menu", "View menuitem clicked", "View menuitem not found");

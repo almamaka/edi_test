@@ -42,12 +42,13 @@ namespace TestEdi
 
 
 
-            mainView!.ClickOn(mainView.OpenFileButton, "And", scenario, "User clicks the 'Open' button", "Open file dialog opened", "Open button not found or cannot be clicked");
+            mainView!.ClickOn(mainView.OpenFileButton, "When", scenario, "User clicks the 'Open' button", "Open file dialog opened", "Open button not found or cannot be clicked");
 
             mainView!.TypeText(mainView!.FileNameInput, fileName, "And", scenario, $"User enters {fileName} for opening file", "File name typed", "File name field not found");
 
+            //there is a split button and not simple button for the win explorer's open button
             mainView!.ClickOn(mainView.ConfirmOpenButton, "And", scenario, "User clicks 'Open' to finalize", "Open button clicked", "Open button not found or cannot be clicked");
-
+            
             var reopenedFile = mainView.FindFileLabel(fileName);
             mainView!.AssertElementVisible(reopenedFile, scenario, "Then", "The file is successfully created", "The new file is successfully created", "File could not be created");
 
